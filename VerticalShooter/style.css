@@ -205,7 +205,10 @@ a {
     width: 10%;
     cursor: pointer;  
 }
-
+/* center tables */
+table {
+    margin: 0px auto;
+}
 
 /* Password requirements */
 #passreqs {   

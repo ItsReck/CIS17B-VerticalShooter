@@ -30,7 +30,7 @@
                 }
                 
 		// Close connection
-                mysqli_close($connection);
+                //mysqli_close($connection);
             ?>
             
             <div id="profile">
@@ -56,6 +56,18 @@
                     <div id="topScores">Top Scores!</div>
                 </a>      
             </div>          
-            
+            <?php
+                
+                $sql = "SELECT username, score, date FROM VerticalShooter_entity_score WHERE username LIKE '%{$login_session}%'";
+                $result = mysqli_query($connection, $sql);
+                echo"<table border ='1'>";
+                echo"<tr><th colspan=\"3\">Your Scores:</th></tr>";
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo"<tr><td>{$row['username']}</td><td>{$row['score']}</td><td>{$row['date']}</td></tr>";
+                }
+                echo"</table>";
+                // Close connection
+                mysqli_close($connection);
+            ?>        
         </body>
 </html>

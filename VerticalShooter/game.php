@@ -39,7 +39,7 @@
                 }
                 
 		// Close connection
-                mysqli_close($connection);
+                //mysqli_close($connection);
             ?>
         <div class="gametable">
                 <div class="topright">
@@ -60,5 +60,20 @@
                     <script src="app.js" type="text/javascript"></script>
                 </div>
             </div>
+        <div style='float:left'>
+            <?php
+                
+                $sql = "SELECT username, MAX(score) FROM VerticalShooter_entity_score GROUP BY username ORDER BY MAX(score) DESC LIMIT 10";
+                $result = mysqli_query($connection, $sql);
+                echo"<table border ='1'>";
+                echo"<tr><td>Name:</td><td>Score:</td></tr>";
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo"<tr><td>{$row['username']}</td><td>{$row['MAX(score)']}</td></tr>";
+                }
+                echo"</table>";
+                // Close connection
+                mysqli_close($connection);
+            ?>        
+        </div>
     </body>
 </html>

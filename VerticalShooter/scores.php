@@ -30,11 +30,6 @@ include('session.php');
                 while($row = mysqli_fetch_array($query)) { 
                     $role = $row["role"];
                 }
-                
-                VerticalShooter_entity_score
-                
-		// Close connection
-               //mysqli_close($connection);
             ?>
             
             <div id="profile">
@@ -55,6 +50,18 @@ include('session.php');
                     <div id="startgame">Start the game!</div>
                 </a>      
             </div>
-            
+            <?php
+                
+                $sql = "SELECT username, MAX(score) FROM VerticalShooter_entity_score GROUP BY username ORDER BY MAX(score) DESC LIMIT 10";
+                $result = mysqli_query($connection, $sql);
+                echo"<table border ='1'>";
+                echo"<tr><td>Name:</td><td>Score:</td></tr>";
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo"<tr><td>{$row['username']}</td><td>{$row['MAX(score)']}</td></tr>";
+                }
+                echo"</table>";
+                // Close connection
+                mysqli_close($connection);
+            ?>
         </body>
 </html>

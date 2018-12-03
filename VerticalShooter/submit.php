@@ -30,7 +30,7 @@
                 
                 $score = $_COOKIE['score'];
                 $date = date('Y-m-d H:i:s');
-                // Insert score into database                 
+                // Insert score into database
                 $sql = "INSERT INTO VerticalShooter_entity_score (username, score, date)
                 VALUES ('$login_session', '$score', '$date')";
 
