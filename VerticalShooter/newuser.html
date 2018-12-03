@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Create new account</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script type="text/javascript" src="sha1.js"></script>
+        <script>
+            function encrypt(){
+                var re = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})/; 
+                var usrnme=document.getElementById("usrnme").value;
+                var pswd1=document.getElementById("pswd1").value;
+                var pswd2=document.getElementById("pswd2").value;
+                var encp="";
+                if(pswd2==pswd1 && pswd1.match(re)!= null){ 
+                    encp=sha1(pswd1);
+                    var sendUrl = "getForm.html?"+"username="+usrnme+"&"+"password="+encp+"&submit=create";
+                    window.location.href=sendUrl;
+                }else if(pswd1!=pswd2){
+                    //Passwords don't match
+                    window.location.href="newuser.html?error1";
+                }else{
+                    //Password not valid
+                    window.location.href="newuser.html?error2";
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="topright">
+            <a href="index.php">
+                <div id="logout">Back to Homepage</div>
+            </a>      
+        </div>              
+  
+        
+        <br>
+        <h1 id="title">Create an Account</h1><br>       
+        <br>
+        
+        <div id="create">  
+            <form>
+                <div class="container">
+                    <label for="username">Username</label>
+                    <input id="usrnme" type="text" placeholder="Enter Username" name="username" required>
+
+                    <label for="password">Password</label>
+                    <input id="pswd1" type="password" placeholder="Enter Password" name="password" required>
+
+                    <label for="password">Confirm Password</label>
+                    <input id="pswd2" type="password" placeholder="Confirm Password" name="password2" required>
+                    
+                    <button id="createbutton" type="button" onclick="encrypt()">Create account</button><br>  
+                </div>   
+            </form>
+        </div>  
+        
+        
+        <div id="createprompt">        
+            <script> 
+                // Grab the info from the form
+                var url=document.location.href;
+ 
+                // Check if any error's exist
+                if(url.indexOf("?error1") !== -1) {
+                    document.write("<h1 style='color: red'>Passwords don't match</h1>")
+                }
+                if(url.indexOf("?error2") !== -1) {
+                    document.write("<h1 style='color: red'>Password not valid</h1>")
+                }
+                
+            </script>
+        </div>   
+        
+        <br>
+        <div id="passreqs">
+            <i>Password must contain:</i>
+            <ul>
+                <li>6 to 20 characters</li>
+                <li>1 capital letter</li>
+                <li>1 lower case letter</li>
+                <li>1 of @#$%!</li>
+            </ul>
+        </div>
+        
+    </body>
+</html>
